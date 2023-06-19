@@ -44,14 +44,15 @@ case 'adicionar_contato' :
 $contato = new stdClass ();
 $contato = json_decode ( $_POST ['contato'] );
 try {
-$sql = "insert into contato(nome, telefone, email, endereco) VALUES (?, ?, ?, ?) ";
+$sql = "insert into contato(nome, telefone, email, endereco, site) VALUES (?, ?, ?, ?, ?) ";
 $conexao = new PDO ( "mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA );
 $pre = $conexao->prepare ( $sql );
 $pre->execute ( array (
 $contato->nome,
 $contato->telefone,
 $contato->email,
-$contato->endereco
+$contato->endereco,
+$contato->site
 ) );
 print json_encode ( $conexao->lastInsertId () );
 } catch ( PDOException $e ) {
@@ -83,7 +84,7 @@ case 'editar_contato' :
 $contato = new stdClass ();
 $contato = json_decode ( $_POST ['contato'] );
 try {
-$sql = "update contato set nome = ?, telefone = ?, email = ?, endereco = ? where id = ? ";
+$sql = "update contato set nome = ?, telefone = ?, email = ?, endereco = ?, site = ? where id = ? ";
 $conexao = new PDO ( "mysql:host=" . SERVIDOR . ";dbname=" . BANCO, USUARIO, SENHA );
 $pre = $conexao->prepare ( $sql );
 $pre->execute ( array (
@@ -91,6 +92,7 @@ $contato->nome,
 $contato->telefone,
 $contato->email,
 $contato->endereco,
+$contato->site,
 $contato->id
 ) );
 print json_encode ( 1 );

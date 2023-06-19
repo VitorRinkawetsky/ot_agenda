@@ -56,8 +56,9 @@ function criaListagemTabela(jsonDados) {
   tabela += '<table class="table table-hover table-bordered"><thead><tr>';
   tabela += '<th scope="col">#</th><th scope="col">Nome</th>';
   tabela += '<th scope="col">Telefone</th><th scope="col">E-mail</th>';
-  tabela +=
-    '<th scope="col">Endereço</th><th scope="col"></th><th scope="col"></th></tr></thead><tbody>';
+  tabela += '<th scope="col">Endereço</th>';
+    tabela +=
+    '<th scope="col">Site</th><th scope="col"></th><th scope="col"></th></tr></thead><tbody>';
   $.each(jsonDados, function (indice, contato) {
     tabela += "<tr>";
     tabela += "<td>" + contato.id + "</td>";
@@ -65,6 +66,7 @@ function criaListagemTabela(jsonDados) {
     tabela += "<td>" + contato.telefone + "</td>";
     tabela += "<td>" + contato.email + "</td>";
     tabela += "<td>" + contato.endereco + "</td>";
+    tabela += "<td>" + contato.site + "</td>";
     tabela +=
       '<td><a href="javascript:void(0);" id="editar_contato" contato_id="' +
       contato.id +
@@ -138,6 +140,7 @@ function salvarContato() {
   Contato.telefone = $("input#telefone").val();
   Contato.email = $("input#email").val();
   Contato.endereco = $("textarea#endereco").val();
+  Contato.site = $("input#site").val();
   var contatoJson = JSON.stringify(Contato);
   $.post(
     "crud.php",
@@ -242,6 +245,8 @@ function getFormularioEdicao(jsonDado) {
     form += '<div class="form-group">';
     form += '<div class="col-sm-offset-2 col-sm-10">';
     form +=
+    '<input type="text" class="form-control" id="site" placeholder="Site" value="'+ contato.site +'">';
+    form +=
       '<button type="button" id="salvar_contato_edicao" class="btn btnprimary">Salvar</button>';
     form += "</div>";
     form += "</div>";
@@ -257,6 +262,7 @@ function salvarContatoEdicao() {
   Contato.telefone = $("input#telefone").val();
   Contato.email = $("input#email").val();
   Contato.endereco = $("textarea#endereco").val();
+  Contato.site = $("input#site").val();
   var contatoJson = JSON.stringify(Contato);
   $.post(
     "crud.php",
